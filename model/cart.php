@@ -43,6 +43,39 @@ function viewcart($del)
         </tr>';
     echo '</table>';
 }
+function bill_chi_tiet($listbill)
+{
+    $tongtien = 0;
+    $i = 0;
+    echo '<table>';
+    echo '<tr>
+            <th>Hình</th>
+            <th>Sản phẩm</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>';
+
+    foreach ($listbill as $cart) {
+        $img = htmlspecialchars($cart['img']);
+        $tongtien += htmlspecialchars($cart['thanhtien']);
+
+        echo '<tr>
+                <td><img src="view/images/' . $img . '" alt=""></td>
+                <td>' . htmlspecialchars($cart['name']) . '</td>
+                <td>' . htmlspecialchars($cart['price']) . '</td>
+                <td><input type="number" value="' . htmlspecialchars($cart['soluong']) . '" min="1" max="10"></td>
+                <td>' . htmlspecialchars($cart['thanhtien']) . '</td>
+            </tr>';
+        $i++;
+    }
+
+    echo '<tr>
+            <td colspan="4">Tổng tiền</td>
+            <td>' . $tongtien . '</td>
+        </tr>';
+    echo '</table>';
+}
 
 function tongdonhang()
 {
@@ -55,22 +88,65 @@ function tongdonhang()
     return $tongtien;
 }
 
-function insert_bill($name, $addr, $phone, $email, $pttt, $ngaydathang, $tongdonhang)
+function insert_bill($iduser, $name, $addr, $phone, $email, $pttt, $ngaydathang, $tongdonhang)
 {
-    $sql = "INSERT INTO bill (bill_name, bill_addr, bill_phone, bill_email, bill_pttt, ngaydathang, total) VALUES ('$name', '$addr', '$phone', '$email', '$pttt', '$ngaydathang', '$tongdonhang')";
+    $sql = "INSERT INTO bill (iduser,bill_name, bill_addr, bill_phone, bill_email, bill_pttt, ngaydathang, total) VALUES ('$iduser','$name', '$addr', '$phone', '$email', '$pttt', '$ngaydathang', '$tongdonhang')";
     return pdo_execute_return_lastInsertId($sql);
 }
 
-function insert_cart($iduser, $idpor, $img, $name, $price, $soluong, $thanhtien, $idbill)
+function insert_cart($iduser, $idpro, $img, $name, $price, $soluong, $thanhtien, $idbill)
 {
-    $sql = "INSERT INTO cart (iduser, idpor, img, name, price, soluong, thanhtien, idbill) VALUES ('$iduser', '$idpor', '$img', '$name', '$price', '$soluong', '$thanhtien', '$idbill')";
+    $sql = "INSERT INTO cart (iduser, idpro, img, name, price, soluong, thanhtien, idbill) VALUES ('$iduser', '$idpro', '$img', '$name', '$price', '$soluong', '$thanhtien', '$idbill')";
     return pdo_execute($sql);
 }
 
 function loadone_bill($id)
 {
     $sql = "SELECT * FROM bill WHERE id='$id'";
+    $bill = pdo_query_one($sql);
+    return $bill;
+}
+
+function loadall_cart($idbill)
+{
+    $sql = "SELECT * FROM cart WHERE idbill='$idbill'";
     $bill = pdo_query($sql);
     return $bill;
 }
-?>
+
+function loadall_cart_count($idbill)
+{
+    $sql = "SELECT * FROM cart WHERE idbill='$idbill'";
+    $bill = pdo_query($sql);
+    return sizeof($bill);
+}
+
+function loadall_bill($iduser)
+{
+    $sql = "SELECT * FROM bill WHERE iduser='$iduser'";
+    $listbill = pdo_query($sql);
+    return $listbill;
+}
+
+function get_ttdh($status)
+{
+    switch ($status) {
+        case 0:
+            $tt = "Đơn hàng mới";
+            break;
+        case 1:
+            $tt = "Đang xử lý";
+            break;
+        case 2:
+            $tt = "Đang giao hàng";
+            break;
+        case 3:
+            $tt = "Hoàn tất";
+            break;
+        default:
+            $tt = "Đơn hàng mới";
+            break;
+        
+    }
+    return $tt;
+}

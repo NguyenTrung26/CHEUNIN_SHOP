@@ -135,6 +135,8 @@ if ((isset($_GET['act'])) && ($_GET['act'] != '')) {
         case 'billconfirm':
             //tao bill
             if (isset($_POST['dongydathang']) && ($_POST['dongydathang'])) {
+                if(isset($_SESSION['user'])) $iduser=$_SESSION['user']['id'];
+                else $iduser=0;
                 $name=$_POST['user'];
                 $addr=$_POST['addr'];
                 $phone=$_POST['phone'];
@@ -143,17 +145,25 @@ if ((isset($_GET['act'])) && ($_GET['act'] != '')) {
                 $ngaydathang=date('h:i:s d/m/Y');
                 $tongdonhang=tongdonhang();
 
-                $idbill=insert_bill($name, $addr, $phone, $email, $pttt, $ngaydathang, $tongdonhang);
+                $idbill=insert_bill($iduser,$name, $addr, $phone, $email, $pttt, $ngaydathang, $tongdonhang);
 
                 //insert into cart : $session['mycart'] & $idbill
-                foreach ($session['mycart'] as $cart) {
+                foreach ($_SESSION['mycart'] as $cart) {
                     
                     insert_cart($_SESSION['user']['id'],$cart[0],$cart[2],$cart[1],$cart[3],$cart[4],$cart[5],$idbill);
                 }
+                $_SESSION['mycart']=[];
+                // header('location:index.php?act=billconfirm&idbill='.$idbill);
+
 
             }
-            $listbill=loadone_bill($idbill);
+            $bill=loadone_bill($idbill);
+            $billct=loadall_cart($idbill);
             include 'view/cart/billconfirm.php';
+            break;
+        case 'mybill':
+            $listbill = loadall_bill($_SESSION['user']['id']);
+            include 'view/cart/mybill.php';
             break;
         case 'thoat':
             unset($_SESSION['user']);

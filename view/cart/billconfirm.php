@@ -9,53 +9,61 @@
                     <a href="index.php"><input type="button" value="Quay lại trang chủ"></a>
                 </div>
             </div>
+            <?php
+            if (isset($bill) && (is_array($bill))) {
+                extract($bill);
+            }
+            ?>
             <div class="row mb">
-                <div class="boxtitle">Mã đơn hàng</div>
+                <div class="boxtitle">THÔNG TIN ĐƠN HÀNG</div>
                 <div class="row boxcontent" style="text-align: center;">
-                    <h2></h2>
-
+                    <li>Mã đơn hàng: CHN-<?= $bill['id']; ?></li>
+                    <li>Ngày đặt hàng: <?= $bill['ngaydathang']; ?></li>
+                    <li>Tổng đơn hàng: <?= $bill['total']; ?></li>
+                    <li>Phương thức thanh toán: <?= $bill['bill_pttt']; ?></li>
                 </div>
             </div>
             <div class="row mb">
-                <div class="boxtitle">Thông tin đơn hàng</div>
+                <div class="boxtitle">THÔNG TIN ĐƠN HÀNG</div>
                 <div class="row boxcontent">
                     <table>
                         <tr>
                             <td>Họ tên</td>
-                            <td><?= $name ?></td>
+                            <td><?= $bill['bill_name']; ?></td>
                         </tr>
                         <tr>
                             <td>Địa chỉ</td>
-                            <td><?= $addr ?></td>
+                            <td><?= $bill['bill_addr']; ?></td>
                         </tr>
                         <tr>
                             <td>Điện thoại</td>
-                            <td><?= $phone ?></td>
+                            <td><?= $bill['bill_phone']; ?></td>
                         </tr>
                         <tr>
                             <td>Email</td>
-                            <td><?= $email ?></td>
+                            <td><?= $bill['bill_email']; ?></td>
                         </tr>
                         <tr>
                             <td>Phương thức thanh toán</td>
-                            <td><?= $pttt ?></td>
+                            <td><?= $bill['bill_pttt']; ?></td>
                         </tr>
                     </table>
                 </div>
 
             </div>
             <div class="row mb">
-                <div class="boxtitle">Phương thức thanh toán</div>
-                <div class="row boxcontent">
+                <div class="boxtitle">CHI TIẾT GIỎ HÀNG</div>
+                <div class="row boxcontent cart">
                     <table>
-                        <tr>
-                            <td><input type="radio" name="pttt" value="1" checked> Thanh toán khi nhận hàng</td>
-                            <td><input type="radio" name="pttt" value="2"> Chuyển khoản ngân hàng</td>
-                            <td><input type="radio" name="pttt" value="3"> Thanh toán online</td>
-                        </tr>
+                        <?php
+                        bill_chi_tiet($billct);
+                        ?>
                     </table>
-                    
-
+                </div>
             </div>
         </div>
+        <div class="boxphai">
+            <?php include 'view/boxright.php'; ?>
+        </div>
     </div>
+</div>
