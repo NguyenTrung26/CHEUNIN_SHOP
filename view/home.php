@@ -54,7 +54,17 @@
                         <p class="price">$' . $price . '</p>
                         <a class="name" href="index.php?act=sanphamct&idsp=' . $id . '">' . $name . '</a>
                     </div>
-                </div>';
+                    <div class="row btnaddtocart">
+                    <form action="index.php?act=addtocart" method="post">
+                        <input type="hidden" name="id" value="' . $id . '">
+                        <input type="hidden" name="name" value="' . $name . '">
+                        <input type="hidden" name="img" value="' . $img . '">
+                        <input type="hidden" name="price" value="' . $price . '">
+                        <input type="submit" name="addtocart" value="Add to cart">
+                    </form>
+                    
+                    </div>
+                    </div>';
                 $i++;
             }
             ?>

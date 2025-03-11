@@ -3,6 +3,7 @@ include '../model/pdo.php';
 include '../model/danhmuc.php';
 include '../model/sanpham.php';
 include '../model/taikhoan.php';
+include '../model/binhluan.php';
 include 'header.php';
 
 if (isset($_GET['act'])) {
@@ -52,6 +53,18 @@ if (isset($_GET['act'])) {
         case 'dskh':
             $listtaikhoan = taikhoan_loadall();
             include 'taikhoan/list.php';
+            break;
+        case 'dsbl':
+            $listbinhluan = loadall_binhluan(0);
+            include 'binhluan/listbinhluan.php';
+            break;
+        case 'xoabl':
+            if (isset($_GET['id']) && ($_GET['id'] > 0)) {
+                $sql="delete from binhluan where id=".$_GET['id'];
+                pdo_execute($sql);
+            }
+            $listbinhluan = loadall_binhluan(0);
+            include 'binhluan/listbinhluan.php';
             break;
         case 'thongke':
             include 'thongke.php';

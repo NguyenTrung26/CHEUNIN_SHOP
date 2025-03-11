@@ -466,3 +466,98 @@
     color: red;
     font-weight: bold;
 }
+
+.binhluan table{
+    width: 90%;
+    margin-left: 5%;
+}
+
+.binhluan table td:nth-child(1){
+    width: 50%;
+}
+
+.binhluan table td:nth-child(2){
+    width: 20%;
+}
+
+.binhluan table td:nth-child(3){
+    width: 30%;
+}
+
+
+.cart table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart th, .cart td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart th {
+    background-color: #f2f2f2;
+}
+
+.cart img {
+    max-width: 100px;
+}
+
+.cart input[type="number"] {
+    width: 60px;
+}
+
+.bill input[type="submit"], .bill button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #28a745; /* Changed to a green color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.bill button {
+    background-color: #dc3545; /* Red color for the delete button */
+}
+
+.bill input[type="submit"]:hover, .bill button:hover {
+    opacity: 0.8;
+}
+
+.bill a input[type="button"] {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 15px 32px; /* Some padding */
+    text-align: center; /* Centered text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make the buttons appear side by side */
+    font-size: 16px; /* Increase font size */
+    margin: 4px 2px; /* Some margin */
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.bill a input[type="button"]:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+.btnaddtocart input[type="submit"] {
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 10px 20px; /* Some padding */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make the container inline-block */
+    font-size: 16px; /* Increase font size */
+    margin: 4px 2px; /* Some margin */
+    cursor: pointer; /* Pointer/hand icon */
+    border-radius: 12px; /* Rounded corners */
+}
+
+.btnaddtocart input[type="submit"]:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+

@@ -1,0 +1,76 @@
+<?php
+function viewcart($del)
+{
+    $tongtien = 0;
+    $i = 0;
+    $xoasp_th = $del == 1 ? '<th>Thao tác</th>' : '';
+    $xoasp_td2 = '';
+
+    echo '<table>';
+    echo '<tr>
+            <th>Hình</th>
+            <th>Sản phẩm</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            ' . $xoasp_th . '
+        </tr>';
+
+    foreach ($_SESSION['mycart'] as $cart) {
+        $img = htmlspecialchars($cart[2]);
+        $price = htmlspecialchars($cart[3]);
+        $qty = htmlspecialchars($cart[4]);
+        $thanhtien = htmlspecialchars($cart[5]);
+        $tongtien += $thanhtien;
+
+        $xoasp_td = $del == 1 ? '<td><a href="index.php?act=delcart&idcart=' . $i . '"><button type="button">Xóa</button></a></td>' : '<td></td>';
+
+        echo '<tr>
+                <td><img src="view/images/' . $img . '" alt=""></td>
+                <td>' . htmlspecialchars($cart[1]) . '</td>
+                <td>' . $price . '</td>
+                <td><input type="number" value="' . $qty . '" min="1" max="10"></td>
+                <td>' . $thanhtien . '</td>
+                ' . $xoasp_td . '
+            </tr>';
+        $i++;
+    }
+
+    echo '<tr>
+            <td colspan="4">Tổng tiền</td>
+            <td>' . $tongtien . '</td>
+            ' . $xoasp_td2 . '
+        </tr>';
+    echo '</table>';
+}
+
+function tongdonhang()
+{
+    $tongtien = 0;
+
+    foreach ($_SESSION['mycart'] as $cart) {
+        $thanhtien = htmlspecialchars($cart[5]);
+        $tongtien += $thanhtien;
+    }
+    return $tongtien;
+}
+
+function insert_bill($name, $addr, $phone, $email, $pttt, $ngaydathang, $tongdonhang)
+{
+    $sql = "INSERT INTO bill (bill_name, bill_addr, bill_phone, bill_email, bill_pttt, ngaydathang, total) VALUES ('$name', '$addr', '$phone', '$email', '$pttt', '$ngaydathang', '$tongdonhang')";
+    return pdo_execute_return_lastInsertId($sql);
+}
+
+function insert_cart($iduser, $idpor, $img, $name, $price, $soluong, $thanhtien, $idbill)
+{
+    $sql = "INSERT INTO cart (iduser, idpor, img, name, price, soluong, thanhtien, idbill) VALUES ('$iduser', '$idpor', '$img', '$name', '$price', '$soluong', '$thanhtien', '$idbill')";
+    return pdo_execute($sql);
+}
+
+function loadone_bill($id)
+{
+    $sql = "SELECT * FROM bill WHERE id='$id'";
+    $bill = pdo_query($sql);
+    return $bill;
+}
+?>
