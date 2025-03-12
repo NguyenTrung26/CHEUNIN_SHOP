@@ -121,16 +121,19 @@ function loadall_cart_count($idbill)
     return sizeof($bill);
 }
 
-function loadall_bill($iduser)
+function loadall_bill($kyw="",$iduser=0)
 {
-    $sql = "SELECT * FROM bill WHERE iduser='$iduser'";
+    $sql = "SELECT * FROM bill WHERE 1";
+    if($iduser>0) $sql.=" AND iduser='$iduser'";
+    if($kyw!="") $sql.=" AND id LIKE '%$kyw%'";
+    $sql.=" ORDER BY id DESC";
     $listbill = pdo_query($sql);
     return $listbill;
 }
 
-function get_ttdh($status)
+function get_ttdh($bill_status)
 {
-    switch ($status) {
+    switch ($bill_status) {
         case 0:
             $tt = "Đơn hàng mới";
             break;
@@ -149,4 +152,14 @@ function get_ttdh($status)
         
     }
     return $tt;
+}
+
+
+function loadall_thongke()
+{
+    $sql = "SELECT danhmuc.id as madm, danhmuc.name as tendm, count(sanpham.id) as countsp, min(sanpham.price) as minprice, max(sanpham.price) as maxprice, avg(sanpham.price) as avgprice";
+    $sql.=" FROM sanpham left join danhmuc on danhmuc.id=sanpham.iddm";
+    $sql.=" GROUP BY danhmuc.id ORDER BY danhmuc.id DESC";
+    $listthongke = pdo_query($sql);
+    return $listthongke;
 }

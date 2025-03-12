@@ -4,6 +4,7 @@ include '../model/danhmuc.php';
 include '../model/sanpham.php';
 include '../model/taikhoan.php';
 include '../model/binhluan.php';
+include '../model/cart.php';
 include 'header.php';
 
 if (isset($_GET['act'])) {
@@ -66,11 +67,11 @@ if (isset($_GET['act'])) {
             $listbinhluan = loadall_binhluan(0);
             include 'binhluan/listbinhluan.php';
             break;
-        case 'thongke':
-            include 'thongke.php';
-            break;
+        // case 'thongke':
+        //     include 'thongke.php';
+        //     break;
 
-            // sanphamaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        //     // sanphamaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
         case 'addsp':
             // Check if the user has submitted the form
@@ -154,7 +155,21 @@ if (isset($_GET['act'])) {
             include 'sanpham/list.php';
             break;
         case 'thongke':
-            include 'thongke.php';
+            $listthongke=loadall_thongke();
+            include 'thongke/list.php';
+            break;
+        case 'bieudo':
+            $listthongke=loadall_thongke();
+            include 'thongke/bieudo.php';
+            break;
+        case 'listbill':
+            if(isset($_POST['kyw']) && ($_POST['kyw']!="")){
+                $kyw=$_POST['kyw'];
+            }else{
+                $kyw="";
+            }
+            $listbill=loadall_bill($kyw,0);
+            include 'bill/listbill.php';
             break;
 
         default:

@@ -15,12 +15,13 @@
         </div>
         <div class="row mb menu">
             <ul>
-                <li><a href="index.php">HOME</a></li>
-                <li><a href="index.php?act=adddm">CATALOG</a></li>
-                <li><a href="index.php?act=addsp">COMMODITIES</a></li>
-                <li><a href="index.php?act=dskh">CUSTOMER</a></li>
-                <li><a href="index.php?act=dsbl">COMMENTS</a></li>
-                <li><a href="index.php?act=thongke">STATISTICS</a></li>
-
+                <li><a href="index.php">TRANG CHỦ</a></li>
+                <li><a href="index.php?act=adddm">DANH MỤC</a></li>
+                <li><a href="index.php?act=addsp">HÀNG HÓA</a></li>
+                <li><a href="index.php?act=dskh">KHÁCH HÀNG</a></li>
+                <li><a href="index.php?act=dsbl">BÌNH LUẬN</a></li>
+                <li><a href="index.php?act=thongke">THỐNG KÊ</a></li>
+                <li><a href="index.php?act=listbill">DANH SÁCH ĐƠN HÀNG</a></li>
+    
             </ul>
         </div>
